@@ -1,5 +1,6 @@
-import "./employees-add-form.css";
 import { Component } from "react";
+
+import "./employees-add-form.css";
 
 export default class EmployeesAddForm extends Component {
   constructor(props) {
@@ -16,8 +17,18 @@ export default class EmployeesAddForm extends Component {
     });
   };
 
+  onSubmit = (e) => {
+    e.preventDefault();
+    this.props.onAdd(this.state.name, this.state.salary);
+    this.setState({
+      name: "",
+      salary: "",
+    });
+  };
+
   render() {
     const { name, salary } = this.state;
+
     return (
       <div className="app-add-form">
         <h3>Добавьте нового сотрудника</h3>
@@ -39,7 +50,11 @@ export default class EmployeesAddForm extends Component {
             value={salary}
           />
 
-          <button type="submit" className="btn btn-outline-light">
+          <button
+            onClick={this.onSubmit}
+            type="submit"
+            className="btn btn-outline-light"
+          >
             Добавить
           </button>
         </form>
